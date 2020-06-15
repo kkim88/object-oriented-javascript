@@ -243,6 +243,14 @@ class Earth {
 const earth = new Earth('earth', 3);
 console.log(earth);
 
-// easiest fix would be to simply modify the class to not be named "Earth", but I don't think that's what the question wants me to do.
+// make properties static
 
+class Earth {
+    static name;
+    static planetNum;
 
+    constructor(name, num) {
+        this.name = name;
+        this.planetNum = num;
+    }
+}
