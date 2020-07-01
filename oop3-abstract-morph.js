@@ -17,13 +17,80 @@ These sub-classes MUST implement the abstract methods of move() and act(), which
 
 */
 
-    class Creature {
-        //your code here...
+class Creature {
+    //your code here...
+
+    constructor() {
+
+        // error to prevent instantiation
+
+        if (this.constructor == Creature) {
+            throw new error("Abstract Class Creature cannot be instantiated!");
+        }
     }
 
-    class Human extends Creature {
-        //your code here...
+    // make move() and act() and make them abstract with errors
+
+    move() {
+        throw new error("This is an abstract method that cannot be invoked.")
+    };
+
+    act() {
+        throw new error("This is an abstract method that cannot be invoked.")
+    };
+};
+
+// create subclasses
+
+class Human extends Creature {
+
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
     }
+
+    // implement act() and move() with overrides
+
+    move() {
+        console.log(`${this.name} moves by walking.`)
+    }
+
+    act() {
+        console.log(`${this.name} says they are ${this.age} years old.`)
+    }
+};
+
+class Bird extends Creature {
+
+    constructor(color, wingspan) {
+        this.color = color;
+        this.wingspan = wingspan;
+    }
+
+    move() {
+        console.log(`The bird flys using their wings with a wingspan of ${this.wingspan}.`)
+    }
+
+    act() {
+        console.log(`The bird shows off its ${this.color} feathers.`)
+    }
+}
+
+class Snake extends Creature {
+
+    constructor(habitat, diet) {
+        this.habitat = habitat;
+        this.diet = diet;
+    }
+
+    move() {
+        console.log(`This snake moves around the ${this.habitat} by slithering.`);
+    }
+
+    act() {
+        console.log(`The snake hunts, looking for ${this.diet}.`)
+    }
+}
 
 
 
@@ -35,28 +102,36 @@ These sub-classes MUST implement the abstract methods of move() and act(), which
 class Person {
     name;
 
+    // keep as is
+
     eat() {
         console.log(this.name + " is eating");
-    }
+    };
 
-    sleep = () => {
+    // refactor
+
+    sleep() {
         console.log(this.name + " is sleeping");
-    }
+    };
 
-    code = function() {
+    // refactor
+
+    code() {
         console.log(this.name + " is coding");
-    }
+    };
 
-    repeat = function() {
+    // refactor
+
+    repeat() {
         console.log(this.name + " is repeating the above steps, yet another time");
-    }
+    };
 
     explain() {
         //this function should contain a console.log() explaining what you had to do to get the correct functions to work, and the reasoning behind what you did.
-        console.log("this explain method should contain explain what you had to do to get the correct functions to work, and the reasoning behind what you did.");
-    }
+        console.log("Many of the fields and prototypes in the parent and child classes did not match, causing the inconsistencies in inheritance. Although it was not strictly necessary, I chose a single standardized way to write the functions in order to properly overwrite them in the child classes. I could have rewritten the child functions to match the ones in the Person class to rewrite them, but that looks incredibly confusing and messy and consistency is good for maintaining clean, readable code.");
+    };
 
-}
+};
 
 
 class Teacher extends Person {
@@ -66,38 +141,69 @@ class Teacher extends Person {
     constructor(name) {
         super(name);
         this.name = name;
-    }
+    };
+
+    // working correctly no change needed
 
     eat() {
         console.log(this.name + " loves to teach before eating");
-    }
+    };
+
+    // did not work parent was refactored
 
     sleep() {
         console.log(this.name + " sleeps after preparing the lesson plan");
-    }
+    };
 
-    code = () => {
+    // worked, but refactored for consistency
+
+    code() {
         console.log(this.name + " codes first, then teaches it the next day.");
-    }
+    };
+
+    // did not work, parent was refactored
 
     repeat() {
         console.log(this.name + " teaches, codes, eats, sleeps, and repeats");
-    }
-}
+    };
+};
 
 
 class Student extends Person {
     //set up your methods in this student class, so all of these methods will override the methods from the super class.
 
+    // constructor to inherit name
+
+    constructor(name) {
+        super(name);
+        this.name = name;
+    }
+
     //eat method should print out - <stduent name> studies, then eats
+
+    eat() {
+        console.log(`${this.name} studies, then eats`);
+    }
 
     //sleep method should print out, <student name> studies coding so much, that they dream about it in their sleep
 
+    sleep() {
+        console.log(`${this.name} studies coding so much, that they dream about it in their sleep`);
+    };
+
     //code method should print out, <student name> was first overwhelmed by coding, but kept at it, and now has become a coding guru!
 
-    //repeat method should print out, <student name> keeps on studying, coding, eating, and sleeping, and puts it all on repeat.  
+    code() {
+        console.log(`${this.name} was first overwhelmed by coding, but kept at it, and now has become a coding guru!`);
+    };
 
-}
+    //repeat method should print out, <student name> keeps on studying, coding, eating, and sleeping, and puts it all on repeat.
+
+    repeat() {
+        console.log(`${this.name} keeps on studying, coding, eating, and sleeping, and puts it all on repeat.`);
+    };
+
+};
 
 
 const teacher = new Teacher("Dr. Teacher");
@@ -128,23 +234,23 @@ student.repeat();
 
 class Cook {
 
-    prepare(food1,food2,food3) {
+    prepare(food1, food2, food3) {
         console.log("The cook is cooking " + food1, food2, food3);
     }
 
-    prepare = function() {
+    prepare = function () {
         console.log('The cook is cooking');
     }
 
     explain = () => {
-        console.log("what could you do to get the prepare function to print out the food items that are being passed in to the function?  Once you figure it out, Write down your thought process in this explain method.");
+        console.log("Looking at the methods, there are two prepare functions. These functions are very similar with the sole difference that the first one takes the arguments for food items. The second empty one, however, overrides the first due to its equal sign. A simple fix for this is to simply delete the second prepare function. If you wish to keep everything, I would rename the second function to something else so that it does not override the first.");
     }
 
 }
 
 const cook = new Cook();
 
-cook.prepare("turkey","salami","pizza");
+cook.prepare("turkey", "salami", "pizza");
 
 cook.explain();
 
